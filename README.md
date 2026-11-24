@@ -210,4 +210,5 @@ Contraintes : `id` en `[a-z0-9_-]` (48 max) et unique ; `difficulty` ∈ {1,2,3}
 
 *Les scénarios et marques cités sont fictifs ou utilisés à des fins strictement pédagogiques.*
 #   s t a t i c - c y b e r s e c u r i t y - t r a i n i n g - p l a t f o r m  
+ #   s t a t i c - c y b e r s e c u r i t y - t r a i n i n g - p l a t f o r m  
  
