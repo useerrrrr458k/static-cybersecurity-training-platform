@@ -1,0 +1,273 @@
+{
+  "version": 1,
+  "scenarios": [
+    {
+      "id": "banque-compte-suspendu",
+      "title": "Banque – compte suspendu",
+      "difficulty": 1,
+      "isPhishing": true,
+      "senderName": "La Banque Postale – Sécurité",
+      "senderEmail": "securite@labanque-postale-secure.com",
+      "replyTo": "",
+      "to": "vous",
+      "subject": "⚠ Activité suspecte : votre compte sera suspendu sous 24 h",
+      "date": "Lun. 12 mai 2025, 07:42",
+      "spf": "fail",
+      "dkim": "none",
+      "body": [
+        { "type": "p", "text": "Cher client," },
+        { "type": "p", "text": "Une activité inhabituelle a été détectée sur votre compte. Pour votre sécurité, votre accès sera SUSPENDU dans 24 heures si vous ne confirmez pas immédiatement vos informations personnelles." },
+        { "type": "button", "text": "Vérifier mon compte maintenant", "href": "https://labanque-postale-secure.com/verification/login.php?id=88213" },
+        { "type": "p", "text": "Cordialement,\nLe Service Sécurité" }
+      ],
+      "clues": [
+        { "kind": "red", "text": "Le domaine de l'expéditeur (labanque-postale-secure.com) n'est PAS le domaine officiel de la banque (labanquepostale.fr). Le mot « secure » est un classique des faux sites." },
+        { "kind": "red", "text": "Menace et urgence : « suspendu dans 24 heures ». Les attaquants veulent vous empêcher de réfléchir." },
+        { "kind": "red", "text": "Salutation générique « Cher client » : une vraie banque s'adresse à vous par votre nom." },
+        { "kind": "red", "text": "Le bouton mène vers le même faux domaine (survolez-le pour le vérifier)." },
+        { "kind": "red", "text": "SPF en échec : le serveur d'envoi n'est pas autorisé à envoyer des mails pour ce domaine." }
+      ],
+      "explanation": "Phishing bancaire classique. Réflexe : ne cliquez jamais depuis le mail ; ouvrez vous-même l'application ou le site officiel de votre banque et vérifiez vos alertes. Signalez le mail sur signal-spam.fr."
+    },
+    {
+      "id": "colis-frais-livraison",
+      "title": "Colis – frais de livraison",
+      "difficulty": 1,
+      "isPhishing": true,
+      "senderName": "Colissimo Livraison",
+      "senderEmail": "no-reply@colissimo-suivi-livraison.top",
+      "replyTo": "",
+      "to": "vous",
+      "subject": "Votre colis n°6A0043921887 est en attente – action requise",
+      "date": "Mar. 13 mai 2025, 18:05",
+      "spf": "fail",
+      "dkim": "fail",
+      "body": [
+        { "type": "p", "text": "Bonjour," },
+        { "type": "p", "text": "Votre colis n'a pas pu être livré car l'adresse est incomplète. Réglez 1,99 € de frais de réexpédition avant 48 h, sinon le colis sera retourné à l'expéditeur." },
+        { "type": "button", "text": "Reprogrammer ma livraison", "href": "https://colissimo-suivi-livraison.top/pay/6A0043921887" },
+        { "type": "p", "text": "Merci de votre confiance." }
+      ],
+      "clues": [
+        { "kind": "red", "text": "Extension de domaine .top et nom à rallonge : le transporteur utilise son domaine officiel (laposte.fr / colissimo.fr)." },
+        { "kind": "red", "text": "Petite somme (1,99 €) demandée : le but est de récupérer votre numéro de carte bancaire, pas 2 euros." },
+        { "kind": "red", "text": "SPF et DKIM en échec : l'expéditeur n'est pas authentifié." },
+        { "kind": "red", "text": "Aucun détail personnalisé (pas de nom, pas d'adresse, pas d'expéditeur)." }
+      ],
+      "explanation": "Le « phishing au colis » explose lors des périodes d'achats. Vérifiez toujours le suivi en saisissant vous-même le numéro sur le site officiel du transporteur."
+    },
+    {
+      "id": "pronote-session-expiree",
+      "title": "Pronote – session expirée (faux lien)",
+      "difficulty": 2,
+      "isPhishing": true,
+      "senderName": "Pronote – Index Éducation",
+      "senderEmail": "noreply@pronote-index-education.net",
+      "replyTo": "",
+      "to": "vous",
+      "subject": "Votre session Pronote a expiré – reconnectez-vous",
+      "date": "Mer. 14 mai 2025, 12:20",
+      "spf": "none",
+      "dkim": "none",
+      "body": [
+        { "type": "p", "text": "Bonjour," },
+        { "type": "p", "text": "Suite à une mise à jour de sécurité, votre session Pronote a expiré. Reconnectez-vous pour conserver l'accès à vos notes, à votre emploi du temps et à votre cahier de textes." },
+        { "type": "link", "text": "https://www.index-education.net/fr/pronote", "href": "https://pronote-index-education.net.verif-compte.ru/connexion?etab=lycee" },
+        { "type": "p", "text": "L'équipe Pronote" }
+      ],
+      "clues": [
+        { "kind": "red", "text": "Le texte du lien affiche une URL officielle, mais la destination réelle est différente. SURVOLEZ le lien : le vrai domaine est verif-compte.ru." },
+        { "kind": "red", "text": "Le domaine de l'expéditeur (pronote-index-education.net) imite index-education.net avec des tirets : ce n'est pas le même propriétaire." },
+        { "kind": "red", "text": "Aucun mécanisme d'authentification (SPF / DKIM absents)." },
+        { "kind": "red", "text": "Une vraie session qui expire ne vous est jamais signalée par mail : l'ENT redemande simplement le mot de passe." }
+      ],
+      "explanation": "Les identifiants ENT/Pronote donnent accès aux notes, aux messages et aux données personnelles. Le domaine réel se lit de DROITE à GAUCHE avant le premier « / » : ici « .ru » puis « verif-compte »."
+    },
+    {
+      "id": "support-quota-mot-de-passe",
+      "title": "Support informatique – quota de boîte mail",
+      "difficulty": 2,
+      "isPhishing": true,
+      "senderName": "Support Informatique – Lycée Jean Moulin",
+      "senderEmail": "support.lycee.jeanmoulin@gmail.com",
+      "replyTo": "support-it-urgence@outlook.fr",
+      "to": "vous",
+      "subject": "Quota de messagerie à 98 % – action immédiate",
+      "date": "Jeu. 15 mai 2025, 09:03",
+      "spf": "pass",
+      "dkim": "pass",
+      "body": [
+        { "type": "p", "text": "Bonjour," },
+        { "type": "p", "text": "Votre boîte mail académique dépasse son quota (98 %). Pour éviter la suppression de vos messages, répondez à ce mail avec votre identifiant et votre mot de passe afin que nous puissions augmenter votre espace de stockage." },
+        { "type": "p", "text": "Le Service Informatique du lycée" }
+      ],
+      "clues": [
+        { "kind": "red", "text": "Adresse gratuite @gmail.com : le service informatique d'un lycée écrit depuis le domaine de l'établissement ou de l'académie." },
+        { "kind": "red", "text": "Le champ « Répondre à » pointe vers une autre adresse (outlook.fr) : votre réponse partirait chez l'attaquant." },
+        { "kind": "red", "text": "On vous demande votre mot de passe. Aucun service informatique sérieux ne le demande, jamais." },
+        { "kind": "green", "text": "SPF et DKIM sont « pass » : cela prouve seulement que Gmail a bien envoyé le message, pas que le lycée en est l'auteur. Authentifié ≠ légitime." }
+      ],
+      "explanation": "Un piège pour les élèves qui pensent que « SPF pass = mail sûr ». Le mail est techniquement authentique (envoyé par un vrai compte Gmail) mais l'identité affichée est usurpée. En cas de doute, contactez le service informatique par un canal connu."
+    },
+    {
+      "id": "facture-piece-jointe-exe",
+      "title": "Facture – pièce jointe .pdf.exe",
+      "difficulty": 2,
+      "isPhishing": true,
+      "senderName": "Mme Lefèvre – Comptabilité",
+      "senderEmail": "compta@fournisseur-materiel-pro.com",
+      "replyTo": "",
+      "to": "vous",
+      "subject": "Facture impayée F-2025-0412 – dernier rappel avant pénalités",
+      "date": "Ven. 16 mai 2025, 16:47",
+      "spf": "none",
+      "dkim": "none",
+      "body": [
+        { "type": "p", "text": "Bonjour," },
+        { "type": "p", "text": "Veuillez trouver ci-joint la facture F-2025-0412 restée impayée. Merci d'ouvrir la pièce jointe immédiatement afin d'éviter l'application de pénalités de retard." },
+        { "type": "attachment", "name": "Facture_F-2025-0412.pdf.exe", "size": "1,2 Mo" },
+        { "type": "p", "text": "Cordialement,\nMme Lefèvre" }
+      ],
+      "clues": [
+        { "kind": "red", "text": "Double extension « .pdf.exe » : c'est un programme exécutable déguisé en PDF. Windows masque par défaut les extensions connues." },
+        { "kind": "red", "text": "Expéditeur inconnu et aucune référence à une commande réelle." },
+        { "kind": "red", "text": "Pression (« dernier rappel », « pénalités ») pour pousser à ouvrir sans réfléchir." },
+        { "kind": "red", "text": "Pas de SPF ni de DKIM : l'origine du mail n'est pas vérifiable." }
+      ],
+      "explanation": "Un fichier .exe, .scr, .js, .docm (macros) ou .zip inattendu est un vecteur typique de ransomware. Activez l'affichage des extensions et ne téléchargez jamais une pièce jointe non attendue ; faites-la analyser."
+    },
+    {
+      "id": "legit-secretariat-reunion",
+      "title": "Secrétariat – réunion parents-professeurs",
+      "difficulty": 1,
+      "isPhishing": false,
+      "senderName": "Secrétariat – Lycée Jean Moulin",
+      "senderEmail": "secretariat@lycee-jean-moulin.fr",
+      "replyTo": "",
+      "to": "vous@lycee-jean-moulin.fr",
+      "subject": "Réunion parents-professeurs du jeudi 22 mai",
+      "date": "Lun. 12 mai 2025, 10:15",
+      "spf": "pass",
+      "dkim": "pass",
+      "body": [
+        { "type": "p", "text": "Bonjour," },
+        { "type": "p", "text": "La réunion parents-professeurs aura lieu le jeudi 22 mai de 17 h à 19 h en salle B12. Les convocations individuelles sont disponibles dans votre espace ENT, rubrique « Documents »." },
+        { "type": "p", "text": "Aucune démarche urgente n'est nécessaire. Pour toute question, vous pouvez passer au secrétariat." },
+        { "type": "p", "text": "Cordialement,\nLe secrétariat" }
+      ],
+      "clues": [
+        { "kind": "green", "text": "Domaine de l'expéditeur cohérent avec l'établissement (lycee-jean-moulin.fr) et SPF/DKIM valides." },
+        { "kind": "green", "text": "Aucune urgence, aucune menace, aucune demande d'identifiants ni de paiement." },
+        { "kind": "green", "text": "Contenu cohérent avec votre situation ; vous êtes invité à passer par votre espace habituel plutôt que par un lien." }
+      ],
+      "explanation": "Un mail légitime : tout est cohérent et aucune action sensible n'est demandée. Savoir reconnaître un vrai mail est aussi important que repérer un faux : trop de méfiance (faux positifs) empêche de travailler."
+    },
+    {
+      "id": "legit-github-cle-ssh",
+      "title": "GitHub – nouvelle clé SSH ajoutée",
+      "difficulty": 2,
+      "isPhishing": false,
+      "senderName": "GitHub",
+      "senderEmail": "noreply@github.com",
+      "replyTo": "",
+      "to": "vous",
+      "subject": "[GitHub] Une clé SSH a été ajoutée à votre compte",
+      "date": "Mar. 13 mai 2025, 21:34",
+      "spf": "pass",
+      "dkim": "pass",
+      "body": [
+        { "type": "p", "text": "Bonjour," },
+        { "type": "p", "text": "Une nouvelle clé SSH nommée « PC-lycee-CIEL » a été ajoutée à votre compte. Si vous êtes à l'origine de cette action, vous pouvez ignorer ce message." },
+        { "type": "p", "text": "Si vous ne reconnaissez pas cette action, vérifiez vos clés ici :" },
+        { "type": "link", "text": "https://github.com/settings/keys", "href": "https://github.com/settings/keys" },
+        { "type": "p", "text": "L'équipe GitHub" }
+      ],
+      "clues": [
+        { "kind": "green", "text": "Domaine exact : github.com. Texte du lien et destination réelle sont identiques." },
+        { "kind": "green", "text": "SPF et DKIM valides pour github.com." },
+        { "kind": "green", "text": "Le mail ne demande aucun mot de passe : il vous informe d'une action que VOUS avez pu faire." },
+        { "kind": "green", "text": "Bonne pratique : même ici, vous pouvez taper github.com vous-même dans le navigateur plutôt que de cliquer." }
+      ],
+      "explanation": "Une notification de sécurité légitime. Ce n'est pas parce qu'un mail parle de sécurité qu'il est frauduleux : on juge le domaine, la cohérence et la demande faite."
+    },
+    {
+      "id": "free-remboursement-carte",
+      "title": "Free Mobile – remboursement par carte",
+      "difficulty": 1,
+      "isPhishing": true,
+      "senderName": "Free Mobile – Facturation",
+      "senderEmail": "facturation@free-mobile-remboursement.fr",
+      "replyTo": "",
+      "to": "vous",
+      "subject": "Remboursement de 38,90 € en attente de validation",
+      "date": "Sam. 17 mai 2025, 11:58",
+      "spf": "fail",
+      "dkim": "none",
+      "body": [
+        { "type": "p", "text": "Cher abonné," },
+        { "type": "p", "text": "Suite à une erreur de facturation, nous vous devons 38,90 €. Pour recevoir votre remboursement, saisissez vos coordonnées bancaires (numéro de carte, date d'expiration et cryptogramme) sur notre portail sécurisé." },
+        { "type": "button", "text": "Recevoir mon remboursement", "href": "https://free-mobile-remboursement.fr/refund/step1" }
+      ],
+      "clues": [
+        { "kind": "red", "text": "Pour RECEVOIR de l'argent, on n'a besoin que d'un IBAN, jamais du cryptogramme de la carte (les 3 chiffres au dos)." },
+        { "kind": "red", "text": "Domaine inventé « free-mobile-remboursement.fr » : l'opérateur utilise free.fr / mobile.free.fr." },
+        { "kind": "red", "text": "Appât financier (« nous vous devons de l'argent ») et salutation générique." },
+        { "kind": "red", "text": "SPF en échec." }
+      ],
+      "explanation": "Le phishing aux faux remboursements vise vos données bancaires. Retenez : le cryptogramme ne sert QU'À payer."
+    },
+    {
+      "id": "fraude-president-cartes-cadeaux",
+      "title": "Proviseur – cartes cadeaux (fraude au président)",
+      "difficulty": 3,
+      "isPhishing": true,
+      "senderName": "M. Dupuis – Proviseur",
+      "senderEmail": "proviseur.dupuis.lycee@gmail.com",
+      "replyTo": "",
+      "to": "vous",
+      "subject": "Urgent et confidentiel",
+      "date": "Jeu. 15 mai 2025, 14:12",
+      "spf": "pass",
+      "dkim": "pass",
+      "body": [
+        { "type": "p", "text": "Bonjour, êtes-vous disponible ? Je suis en réunion au rectorat et je ne peux pas téléphoner." },
+        { "type": "p", "text": "J'ai besoin d'un service : pouvez-vous acheter 4 cartes cadeaux de 100 € pour un cadeau de départ ? Envoyez-moi les codes par retour de mail, je vous rembourserai ce soir. Merci de rester discret(e) sur ce sujet." },
+        { "type": "p", "text": "M. Dupuis\nEnvoyé depuis mon iPhone" }
+      ],
+      "clues": [
+        { "kind": "red", "text": "Adresse @gmail.com pour un chef d'établissement : l'adresse professionnelle est celle de l'établissement ou de l'académie." },
+        { "kind": "red", "text": "Demande d'achat de cartes cadeaux et d'envoi des codes : mode de paiement privilégié des escrocs (non traçable)." },
+        { "kind": "red", "text": "Urgence + confidentialité + « je ne peux pas téléphoner » : on vous isole pour empêcher la vérification." },
+        { "kind": "red", "text": "Mention « Envoyé depuis mon iPhone » : un simple habillage pour paraître authentique." }
+      ],
+      "explanation": "Il s'agit d'une fraude au président (Business Email Compromise), une des arnaques les plus coûteuses. Défense : vérifier la demande par un second canal (appel au numéro connu, visite en personne) avant toute action financière."
+    },
+    {
+      "id": "legit-google-nouvelle-connexion",
+      "title": "Google – nouvelle connexion détectée",
+      "difficulty": 3,
+      "isPhishing": false,
+      "senderName": "Google",
+      "senderEmail": "no-reply@accounts.google.com",
+      "replyTo": "",
+      "to": "vous",
+      "subject": "Alerte de sécurité : nouvelle connexion sur votre compte",
+      "date": "Dim. 18 mai 2025, 23:11",
+      "spf": "pass",
+      "dkim": "pass",
+      "body": [
+        { "type": "p", "text": "Une nouvelle connexion à votre compte Google a eu lieu depuis un appareil Windows (Paris, France)." },
+        { "type": "p", "text": "Si c'était vous, vous n'avez rien à faire. Sinon, nous vous conseillons de vérifier l'activité récente de votre compte." },
+        { "type": "button", "text": "Consulter l'activité", "href": "https://myaccount.google.com/notifications" },
+        { "type": "p", "text": "Vous avez reçu cet e-mail pour vous informer de modifications importantes de votre compte Google." }
+      ],
+      "clues": [
+        { "kind": "green", "text": "Domaine d'expédition accounts.google.com : la partie qui compte est google.com (juste avant l'extension)." },
+        { "kind": "green", "text": "Le bouton mène vers myaccount.google.com, un sous-domaine officiel de google.com." },
+        { "kind": "green", "text": "Aucune saisie de mot de passe n'est demandée dans le mail ; « si c'était vous, rien à faire »." },
+        { "kind": "green", "text": "Un ton « alerte de sécurité » ne suffit pas à conclure au phishing. Le domaine, l'authentification et la demande comptent davantage." }
+      ],
+      "explanation": "Un vrai mail qui ressemble à un phishing : il évite de vous faire classer tous les mails d'alerte comme malveillants. Dans le doute, ouvrez directement le site ou l'application, sans passer par le lien."
+    }
+  ]
+}

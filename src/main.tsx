@@ -1,0 +1,14 @@
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import { applyTheme, loadTheme } from "./lib/storage";
+
+// On applique le thème AVANT le premier rendu pour éviter un "flash" sombre → clair.
+applyTheme(loadTheme());
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+);

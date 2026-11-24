@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="CyberDojo CIEL – plateforme statique d'entraînement au phishing et à la cybersécurité (Bac Pro CIEL)." />
+    <meta name="referrer" content="no-referrer" />
+    <!--
+      CONTENT SECURITY POLICY (défense en profondeur contre le XSS)
+      - default-src 'none'  : tout est interdit par défaut (liste blanche).
+      - connect-src 'self'  : le JS ne peut contacter AUCUN serveur externe.
+        => preuve technique du "Privacy by Design" : un mot de passe saisi ne peut pas
+           être envoyé à un tiers, même en cas de bug.
+      - 'unsafe-inline' est nécessaire UNIQUEMENT parce que le build "single file"
+        injecte le JS/CSS dans index.html (limite documentée dans le README).
+      - ws: autorise le rechargement à chaud en développement (sans effet en production).
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' ws: wss:; base-uri 'none'; form-action 'none'; object-src 'none'"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2322d3ee' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3Cpath d='M9 12l2 2 4-4'/%3E%3C/svg%3E"
+    />
+    <title>CyberDojo CIEL – Entraînement phishing &amp; cybersécurité</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

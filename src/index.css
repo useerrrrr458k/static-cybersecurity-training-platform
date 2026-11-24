@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   THÈMES : on définit des variables CSS (sombre par défaut) puis on
+   les surcharge avec la classe .light sur <html>. Tailwind les expose
+   ensuite comme couleurs sémantiques (bg-surface, text-muted, ...).
+   ------------------------------------------------------------------ */
+:root {
+  --c-bg: #080d1c;
+  --c-surface: #0f1730;
+  --c-surface2: #16204135;
+  --c-surface2-solid: #172243;
+  --c-line: #243257;
+  --c-fg: #e8edff;
+  --c-muted: #8f9bc7;
+  --c-accent: #22d3ee;
+  --c-accent-fg: #04202a;
+  --c-danger: #fb4b6d;
+  --c-ok: #34d399;
+  --c-warn: #fbbf24;
+  color-scheme: dark;
+}
+:root.light {
+  --c-bg: #eef2fa;
+  --c-surface: #ffffff;
+  --c-surface2: #f1f4fbcc;
+  --c-surface2-solid: #eef2fb;
+  --c-line: #d5ddef;
+  --c-fg: #0f1a3a;
+  --c-muted: #55628c;
+  --c-accent: #0891b2;
+  --c-accent-fg: #ffffff;
+  --c-danger: #dc2650;
+  --c-ok: #059669;
+  --c-warn: #b45309;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-bg: var(--c-bg);
+  --color-surface: var(--c-surface);
+  --color-surface2: var(--c-surface2-solid);
+  --color-line: var(--c-line);
+  --color-fg: var(--c-fg);
+  --color-muted: var(--c-muted);
+  --color-accent: var(--c-accent);
+  --color-accent-fg: var(--c-accent-fg);
+  --color-danger: var(--c-danger);
+  --color-ok: var(--c-ok);
+  --color-warn: var(--c-warn);
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "JetBrains Mono", "Cascadia Code", "SF Mono", Menlo, Consolas, monospace;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+body {
+  background: var(--c-bg);
+  color: var(--c-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.005em;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Fond "grille cyber" très discret */
+.bg-grid {
+  background-image:
+    radial-gradient(60rem 30rem at 85% -10%, color-mix(in srgb, var(--c-accent) 14%, transparent), transparent 60%),
+    linear-gradient(var(--c-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--c-line) 1px, transparent 1px);
+  background-size: auto, 44px 44px, 44px 44px;
+  background-position: 0 0, -1px -1px, -1px -1px;
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 70%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 70%);
+  opacity: 0.35;
+}
+
+/* Animations fluides */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pop {
+  0% { transform: scale(0.96); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-fade-up { animation: fade-up 0.35s ease-out both; }
+.animate-pop { animation: pop 0.25s ease-out both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Barre de défilement fine */
+* { scrollbar-width: thin; scrollbar-color: var(--c-line) transparent; }
+
+:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Composants réutilisables */
+.card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: 1rem;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.65rem;
+  padding: 0.55rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: 1px solid var(--c-line);
+  background: var(--c-surface2-solid);
+  color: var(--c-fg);
+  transition: transform 0.15s, background-color 0.2s, border-color 0.2s, opacity 0.2s;
+  cursor: pointer;
+}
+.btn:hover:not(:disabled) { border-color: var(--c-accent); transform: translateY(-1px); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-primary { background: var(--c-accent); color: var(--c-accent-fg); border-color: transparent; }
+.btn-primary:hover:not(:disabled) { border-color: transparent; filter: brightness(1.1); }
+.btn-danger { background: color-mix(in srgb, var(--c-danger) 15%, transparent); color: var(--c-danger); border-color: color-mix(in srgb, var(--c-danger) 40%, transparent); }
+.btn-ok { background: color-mix(in srgb, var(--c-ok) 15%, transparent); color: var(--c-ok); border-color: color-mix(in srgb, var(--c-ok) 40%, transparent); }
+
+.input {
+  width: 100%;
+  border-radius: 0.65rem;
+  border: 1px solid var(--c-line);
+  background: var(--c-bg);
+  color: var(--c-fg);
+  padding: 0.55rem 0.8rem;
+  font-size: 0.9rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.input:focus { outline: none; border-color: var(--c-accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--c-accent) 25%, transparent); }
+.label { display: block; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--c-muted); margin-bottom: 0.35rem; }
